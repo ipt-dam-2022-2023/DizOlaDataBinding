@@ -6,6 +6,9 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.example.myapplication.databinding.ActivityMainBinding
+
 
 const val EXTRA_MESSAGE = "MESSAGE1"
 const val TXT_VALUE = "TXT_VALUE"
@@ -13,15 +16,21 @@ const val TXT_VALUE = "TXT_VALUE"
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.data = MyBinding("ola");
     }
 
     fun dizOla(view: View) {
         Log.d("Atenção:", "Vou dizer Olá")
         val txtOla: TextView = findViewById(R.id.txtOla)
-        txtOla.text = "Ola Mundo"
+        //txtOla.text = "Ola Mundo"
+        binding.data?.txtDizOla += "a"
+        binding.invalidateAll()
     }
 
     fun muda(view: View) {
